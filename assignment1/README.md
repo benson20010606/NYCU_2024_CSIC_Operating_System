@@ -16,20 +16,29 @@ sudo apt-get install git build-essential ncurses-dev libssl-dev bc flex libelf-d
 make menuconfig
 vim .config
 ```
-![image](picture/suffix.jpg)
 
-3. Build the kernel and install the modul
+<!-- ![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/suffix.jpg)  -->
+<p align="center">
+  <img src="./pictrue/suffix.jpg" alt="image">
+</p>
+
+
+3. Build the kernel and install the modul  
 
 ```
 make
 sudo make modules_install 
 ```
-
-4. Verify the kernel version to be installed
-
+  
+4. Verify the kernel version to be installed  
 ```
 make kernelrelease
 ```
+<!-- ![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/kernelrelease.jpg)   -->
+
+<p align="center">
+  <img src="./pictrue/kernelrelease.jpg" alt="image">
+</p>
 
 5. Install the kernel.
 
@@ -41,13 +50,31 @@ sudo make install
 sudo update-grub
 sudo reboot
 ```
+
+<p float="left">
+  <img src="./pictrue/GRUB1.jpg" alt="image1" width="600"/>
+  <img src="./pictrue/GRUB2.jpg" alt="image2" width="560"/>
+</p>
+
+<p align="center">
+  <img src="./pictrue/GRUB3.jpg" alt="image">
+</p>
+<!--
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/GRUB1.jpg)![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/GRUB2.jpg)   
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/GRUB3.jpg)   
+-->
 7. Verify the current kernel version.
 
 ```
 uname -a
 cat /etc/os-release
 ```
-
+<p align="center">
+  <img src="./pictrue/RESULT1.jpg" alt="image">
+</p>
+<!--
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/RESULT1.jpg) 
+-->
 
 ### reference:  
 <https://phoenixnap.com/kb/build-linux-kernel>
@@ -100,10 +127,34 @@ obj-y :=revstr.o
 ```
 3. Add the written system call to `~/linux/arch/x86/entry/syscalls/syscall_64.tbl`, placing it at the end of the 64-bit section. The system call number is` 451`, the name is` revstr`, and the entry point is `sys_revstr`.
 
+
+<p align="center">
+  <img src="./pictrue/system_call_table.jpg" alt="image">
+</p>
+
+<!--
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/system_call_table.jpg) 
+-->
 4. Declare the prototype of `sys_revst`r in` ~/linux/include/linux/syscalls.h` so that the Linux Kernel compiler can recognize this new system call and invoke it where needed.
 
+<p align="center">
+  <img src="./pictrue/Declare.jpg" alt="image">
+</p>
 
-5. Add the relative path of the` ~/linux/revstr `directory to` core-y` in `~/linux/Makefile` so that it is included during the compilation process
+
+<!--
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/Declare.jpg) 
+-->
+
+5. Add the relative path of the` ~/linux/revstr `directory to` core-y` in `~/linux/Makefile` so that it is included during the compilation process  
+
+<p align="center">
+  <img src="./pictrue/core-y.jpg" alt="image">
+</p>
+
+<!--
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/core-y.jpg) 
+-->
 
 6. Reflash and reboot
 ```
@@ -144,3 +195,13 @@ int main(int argc ,char* argv[]){
 
 sudo dmesg
 ```
+
+<p align="center">
+  <img src="./pictrue/result2.jpg" alt="image">
+  <img src="./pictrue/result3.jpg" alt="image">
+</p>
+
+<!--
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/result2.jpg) 
+![image](/NYCU_2024_CSIC_Operating_System/assignment1/pictrue/result3.jpg) 
+-->
