@@ -12,4 +12,9 @@ Kernel Version:  6.8 (GA)  -> 6.1.0
     - Goal of the assignment :
         - Compile a custom Linux kernel from source
         - Add a new Linux system call
-        - Create a kernel patch
+        - Create a kernel patch  
+
+
+* Assignment 2: Scheduling Policy Demonstration Program
+    - Goal of the assignment :
+        - implement a program to apply different scheduling policies on created threads and observe their behaviors.
