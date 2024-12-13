@@ -173,13 +173,13 @@ void* thread_func(void* arg){
 For **`SCHED_OTHER` (`SCHED_NORMAL`)**, its default priority is 0, so **Thread 0** can be treated as having a priority of 0. For *`SCHED_FIFO`*, the execution order is determined based on the priority (with static priorities higher than 0 having higher precedence). Therefore, **Thread 2** (with priority 30) will execute first, followed by **Thread 1** (with priority 10), and finally **Thread 0**(with priority 0).
 Since **`sched_rt_runtime_us`** is equal to **`sched_rt_period_us`** , **`SCHED_OTHER`** cannot take control of the CPU before **`SCHED_FIFO`** finishes its execution.
 
-![alt text](image\image.png)
+![alt text](image/image.png)
 
 ### **Case 2 (when `sched_rt_runtime_us < sched_rt_period_us`):**
 
 In this case, `sched_rt_runtime_us = 950000` (0.95 seconds) and `sched_rt_period_us = 1000000` (1 second). This means that within one period (1 second), 0.95 seconds are allocated to real-time tasks (`SCHED_FIFO`), and the remaining 0.05 seconds are allocated to normal tasks (`SCHED_OTHER`). Therefore, unlike **Case 1**, the CPU will not be completely occupied by the real-time tasks.
 First, **Thread 2** (with priority 30) will acquire the CPU and run for 0.95 seconds. After that, the remaining 0.05 seconds are allocated by the CFS (Completely Fair Scheduler) to the `SCHED_OTHER` task (there is only one such task, so it gets the full 0.05 seconds). Then, the next 0.95 seconds are given to real-time tasks again, followed by 0.05 seconds for the `SCHED_OTHER` task. This cycle repeats until all tasks are complete.
-![alt text](image\image-1.png)
+![alt text](image/image-1.png)
 
 
 ## III. Describe the results of sudo ./sched_demo -n 4 -t 0.5 -s NORMAL,FIFO,NORMAL,FIFO -p -1,10,-1,30, and what causes that.
@@ -191,7 +191,7 @@ Since `sched_rt_runtime_us` is equal to `sched_rt_period_us`, real-time tasks (`
 
 First, the highest priority thread, **Thread 3**, will acquire the CPU and execute. After that, the next highest priority thread, **Thread 1**, will take over the CPU. Once all the real-time tasks (`SCHED_FIFO`) are completed, the CPU resources will be fairly distributed to the normal tasks (`SCHED_OTHER`)
 
-![alt text](image\image-3.png)
+![alt text](image/image-3.png)
 
 
 
@@ -203,7 +203,7 @@ First, **Thread 3** (with priority 30) will acquire the CPU and run for 0.95 sec
 
 Then, the system will allocate the next 0.95 seconds to the real-time tasks (`SCHED_FIFO`), followed by another 0.05 seconds for the `SCHED_OTHER` tasks. This cycle repeats until all tasks are completed.
 
-![alt text](image\image-4.png)
+![alt text](image/image-4.png)
 
 ## IV. Describe how did you implement n-second-busy-waiting?
 ### Using `clock_gettime()` for Busy-Waiting
