@@ -361,3 +361,31 @@ static void __exit kfetch_driver_exit(void)
 
 ## II. How to let kernel module  be thread-safe
 
+To prevent race conditions when multiple processes access the kernel, we use **DEFINE_MUTEX()** to protect the kernel module. A mutex lock is applied during **kfetch_open()**, and it is released in **kfetch_release()**.
+
+This ensures that only one process at a time can access **/dev/kfetch** via **kfetch_open()**. Other processes must wait until the first process calls **kfetch_release()** before they can access **/dev/kfetch**.
+
+
+
+```C
+#include <linux/mutex.h>
+
+
+DEFINE_MUTEX(mutex_kfetch);
+
+static int kfetch_open(struct inode *inode , struct file *file)
+{	
+	mutex_lock(&mutex_kfetch);
+	pr_info("Mutex lock and Device File Opened...!!!\n");
+	
+	return 0;
+}
+
+static int kfetch_release(struct inode *inode , struct file *file)
+{	
+	mutex_unlock(&mutex_kfetch);
+	pr_info("Mutex unlock and Device File Closed...!!!\n");
+	return 0;
+}
+
+```
